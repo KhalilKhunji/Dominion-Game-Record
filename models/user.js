@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  games: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Game',
+  }]
 });
 
 const User = mongoose.model("User", userSchema);
