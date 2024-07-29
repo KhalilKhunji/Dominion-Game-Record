@@ -1,20 +1,28 @@
 // Import Modules
 require('dotenv').config();
 const express = require('express');
-require('./config/database');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
-const authController = require('./controllers/auth.js');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const isSignedIn = require('./middleware/is-signed-in.js');
-const passUserToView = require('./middleware/pass-user-to-view.js');
 
 const app = express();
 
 const port = process.env.PORT ? process.env.PORT : "3000";
 
-// Middleware
+// Database (Maybe models unnecessary here?)
+require('./config/database');
+const Game = require('./models/game.js');
+const Card = require('./models/card.js');
+
+// Controllers
+const authController = require('./controllers/auth.js');
+const gameCtrl = require('./controllers/game.js');
+
+// Middleware (Maybe signin MW above AuthCtrl require?)
+const isSignedIn = require('./middleware/is-signed-in.js');
+const passUserToView = require('./middleware/pass-user-to-view.js');
+
 app.use(morgan('dev'));
 
 app.use(express.urlencoded({ extended: false }));
@@ -38,13 +46,10 @@ app.use(passUserToView);
 app.use("/auth", authController);
 
 app.get("/", (req, res) => {
-  const user = req.session.user;  
   res.render("index.ejs");
 });
 
-app.get("/vip-lounge", isSignedIn, (req, res) => {
-  res.send(`Welcome to the party ${req.session.user.username}.`);
-});
+app.get("/games", isSignedIn, gameCtrl.index);
 
 
 

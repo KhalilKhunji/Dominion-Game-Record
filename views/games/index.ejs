@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Record Index</title>
+</head>
+<body>
+    <h1>Dominion Game Records</h1>
+    <a href="/games/new">Add New Record</a>
+    <ol>
+      <% games.forEach(game => { %>
+        <li><a href="/games/<%= game._id %>">Game ID: <%= game._id %></a></li>
+      <% }); %>
+    </ol>
+</body>
+</html>
