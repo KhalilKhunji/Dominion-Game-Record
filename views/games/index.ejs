@@ -6,7 +6,7 @@
     <title>Game Record Index</title>
 </head>
 <body>
-    <h1>Dominion Game Records</h1>
+    <h1><%= user.username %>'s Dominion Game Records</h1>
     <a href="/games/new">Add New Record</a>
     <ol>
       <% games.forEach(game => { %>

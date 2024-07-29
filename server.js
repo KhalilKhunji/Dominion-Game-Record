@@ -8,7 +8,7 @@ const MongoStore = require('connect-mongo');
 
 const app = express();
 
-const port = process.env.PORT ? process.env.PORT : "3000";
+const port = process.env.PORT ? process.env.PORT : '3000';
 
 // Database (Maybe models unnecessary here?)
 require('./config/database');
@@ -43,15 +43,15 @@ app.use(
 app.use(passUserToView);
 
 // Routes
-app.use("/auth", authController);
+app.use('/auth', authController);
 
-app.get("/", (req, res) => {
-  res.render("index.ejs");
+app.get('/', (req, res) => {
+  res.render('index.ejs');
 });
 
-app.get("/games", isSignedIn, gameCtrl.index);
+app.get('/games', isSignedIn, gameCtrl.gameIndex);
 
-
+app.get('/games/new', isSignedIn, gameCtrl.gameNew);
 
 // Port Listening
 app.listen(3000, () => {
