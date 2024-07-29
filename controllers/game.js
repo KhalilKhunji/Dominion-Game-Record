@@ -7,7 +7,7 @@ const gameIndex = async (req, res) => {
 };
 
 const gameNew = async (req, res) => {
-    const cards = await Card.find();
+    const cards = await Card.find({kingdom: true});
     res.render('games/new.ejs', {cards});
 };
 

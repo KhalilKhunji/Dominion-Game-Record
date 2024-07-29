@@ -1,14 +1,20 @@
 const mongoose = require("mongoose");
 
-const validateKingdom = () => {
+const validateKingdom = (array) => {
     if (array.length === 10) {
-        return true;
+        if(array.every((value) => {
+            return array.indexOf(value) === array.lastIndexOf(value);
+        })) {
+            return true;
+        } else {
+            return false;
+        };
     } else {
         return false;
     };
 };
 
-const validatePlayers = () => {
+const validatePlayers = (array) => {
     if (array.length >= 2 && array.length <= 6) {
         return true;
     } else {
@@ -30,7 +36,7 @@ const kingdomSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Card'
             }],
-        validate: [validateKingdom, 'Kingdoms need to be 10']
+        validate: [validateKingdom, 'Kingdoms need to be 10 & Unique.']
     }
 });
 
