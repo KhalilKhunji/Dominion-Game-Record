@@ -28,7 +28,18 @@
                 <% }; %>
         </fieldset>
         <fieldset>
-            <legend></legend>
+            <legend>Kingdom</legend>
+            <% for (let i = 1; i <= 10; i++) { %>
+                <div>
+                    <label for="kingdom-card-<%= i %>">Card <%= i %>:</label>
+                    <select name="kingdom-card-<%= i %>" id="kingdom-card-<%= i %>" required>
+                            <option value="">--Kingdom Card <%= i %>--</option>
+                        <% cards.forEach ((card) => { %>
+                            <option value="<%= card.name %>"><%= card.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+            <% }; %>
         </fieldset>
   
       <button type="submit">Add Record</button>
