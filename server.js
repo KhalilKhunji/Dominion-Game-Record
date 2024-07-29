@@ -53,6 +53,8 @@ app.get('/games', isSignedIn, gameCtrl.gameIndex);
 
 app.get('/games/new', isSignedIn, gameCtrl.gameNew);
 
+app.post('/games', isSignedIn, gameCtrl.gameCreate);
+
 // Port Listening
 app.listen(3000, () => {
   console.log('Listening on port 3000');

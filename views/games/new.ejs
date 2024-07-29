@@ -34,14 +34,13 @@
                     <label for="kingdom-card-<%= i %>">Card <%= i %>:</label>
                     <select name="kingdom-card-<%= i %>" id="kingdom-card-<%= i %>" required>
                             <option value="">--Kingdom Card <%= i %>--</option>
-                        <% cards.forEach ((card) => { %>
+                        <% kingdomCards.forEach ((card) => { %>
                             <option value="<%= card._id %>"><%= card.name %></option>
                         <% }); %>
                     </select>
                 </div>
             <% }; %>
         </fieldset>
-  
       <button type="submit">Add Record</button>
     </form>
   </body>
