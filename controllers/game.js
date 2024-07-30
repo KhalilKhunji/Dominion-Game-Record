@@ -16,6 +16,7 @@ const gameNew = async (req, res) => {
     res.render('games/new.ejs', {kingdomCards});
 };
 
+// Move validation to middleware
 const gameCreate = async (req, res) => {
         let players = [];
         for (let i = 1; i <= 6; i++) {
@@ -33,7 +34,7 @@ const gameCreate = async (req, res) => {
             };
         };
         if (kingdom.length === 10) {
-            if(uniqueChecker(kingdom, 'id')) {
+            if(uniqueChecker(kingdom, 'card')) {
                 const game = {
                     players,
                     enjoyability: req.body.enjoyability,
@@ -44,16 +45,28 @@ const gameCreate = async (req, res) => {
                 await Game.create(game);
                 res.redirect('/games');
             } else {
-                res.redirect('games/new')
+                console.log('validation failed');
+                res.locals.body = req.body;
+                console.log(res.locals);
+                // res.redirect('games/new');
             };
         } else {
-            res.redirect('games/new')
+            console.log('validation failed');
+            console.log(res.locals);
         };
+};
+
+const gameShow = async (req, res) => {
+    const currentGame = await Game.findById(req.params.gameId).populate('kingdom.card');
+    console.log(currentGame.kingdom);
+    res.render('games/show.ejs', {game: currentGame});
 };
 
 module.exports = {
     gameIndex,
     gameNew,
     gameCreate,
+    gameShow,
+
 
 }
