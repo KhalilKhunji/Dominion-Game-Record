@@ -22,6 +22,7 @@ const gameCtrl = require('./controllers/game.js');
 // Middleware (Maybe signin MW above AuthCtrl require?)
 const isSignedIn = require('./middleware/is-signed-in.js');
 const passUserToView = require('./middleware/pass-user-to-view.js');
+const isGameUser = require('./middleware/is-game-user.js');
 
 app.use(morgan('dev'));
 
@@ -55,13 +56,13 @@ app.get('/games/new', isSignedIn, gameCtrl.gameNew);
 
 app.post('/games', isSignedIn, gameCtrl.gameCreate);
 
-app.get('/games/:gameId', isSignedIn, gameCtrl.gameShow);
+app.get('/games/:gameId', isSignedIn, isGameUser, gameCtrl.gameShow);
 
-app.get('/games/:gameId/edit', isSignedIn, gameCtrl.gameEdit);
+app.get('/games/:gameId/edit', isSignedIn, isGameUser, gameCtrl.gameEdit);
 
-app.put('/games/:gameId', isSignedIn, gameCtrl.gameUpdate);
+app.put('/games/:gameId', isSignedIn, isGameUser, gameCtrl.gameUpdate);
 
-app.delete('/games/:gameId', isSignedIn, gameCtrl.gameDelete);
+app.delete('/games/:gameId', isSignedIn, isGameUser, gameCtrl.gameDelete);
 
 // Port Listening
 app.listen(3000, () => {

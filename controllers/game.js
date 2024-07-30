@@ -7,7 +7,7 @@ const uniqueChecker = (array, key) => {
 };
 
 const gameIndex = async (req, res) => {
-    const games = await Game.find();
+    const games = await Game.find({user_id: req.session.user});
     res.render('games/index.ejs', {games});
 };
 
