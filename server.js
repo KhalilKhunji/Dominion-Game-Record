@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const path = require('path');
 
 const app = express();
 
@@ -39,6 +40,8 @@ app.use(passUserToView);
 
 app.use('/auth', authController);
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.get('/', (req, res) => {
   res.render('index.ejs');
 });
@@ -57,6 +60,4 @@ app.put('/games/:gameId', isSignedIn, isGameUser, gameCtrl.gameUpdate);
 
 app.delete('/games/:gameId', isSignedIn, isGameUser, gameCtrl.gameDelete);
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000');
-});
+app.listen(3000);
