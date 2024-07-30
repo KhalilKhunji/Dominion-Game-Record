@@ -58,8 +58,34 @@ const gameCreate = async (req, res) => {
 
 const gameShow = async (req, res) => {
     const currentGame = await Game.findById(req.params.gameId).populate('kingdom.card');
-    console.log(currentGame.kingdom);
     res.render('games/show.ejs', {game: currentGame});
+};
+
+const gameEdit = async (req, res) => {
+    const currentGame = await Game.findById(req.params.gameId).populate('kingdom.card');
+    let players = [];
+    let scores = [];
+    for (let i = 1; i <= 6; i++) {
+        if (currentGame.players[i-1]) {
+            players.push(currentGame.players[i-1].name);
+            scores.push(currentGame.players[i-1].score);
+        };
+    };
+    let kingdom = [];
+    for (let i = 1; i <= 10; i++) {
+        kingdom.push(currentGame.kingdom[i-1].card.name);
+    };
+    const game = {
+        _id: currentGame._id,
+        players,
+        scores,
+        enjoyability: currentGame.enjoyability,
+        kingdom,
+    };
+    console.log(currentGame);
+    console.log(game);
+    const kingdomCards = await Card.find({kingdom: true});
+    res.render('games/edit.ejs', {game, kingdomCards});
 };
 
 module.exports = {
@@ -67,6 +93,6 @@ module.exports = {
     gameNew,
     gameCreate,
     gameShow,
-
+    gameEdit,
 
 }
