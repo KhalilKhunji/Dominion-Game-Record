@@ -61,6 +61,8 @@ app.get('/games/:gameId/edit', isSignedIn, gameCtrl.gameEdit);
 
 app.put('/games/:gameId', isSignedIn, gameCtrl.gameUpdate);
 
+app.delete('/games/:gameId', isSignedIn, gameCtrl.gameDelete);
+
 // Port Listening
 app.listen(3000, () => {
   console.log('Listening on port 3000');

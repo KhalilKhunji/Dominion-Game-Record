@@ -124,11 +124,17 @@ const gameUpdate = async (req, res) => {
         };
 };
 
+const gameDelete = async (req, res) => {
+    await Game.findByIdAndDelete(req.params.gameId);
+    res.redirect("/games");
+};
+
 module.exports = {
     gameIndex,
     gameNew,
     gameCreate,
     gameShow,
     gameEdit,
-    gameUpdate
-}
+    gameUpdate,
+    gameDelete
+};
