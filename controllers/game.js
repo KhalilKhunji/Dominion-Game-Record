@@ -97,44 +97,39 @@ const gameEdit = async (req, res) => {
         kingdom,
     };
     const kingdomCards = await Card.find({kingdom: true});
-    res.render('games/edit.ejs', {game, kingdomCards});
+    res.render('games/edit.ejs', {game, kingdomCards, validationError});
 };
 
 const gameUpdate = async (req, res) => {
     let players = [];
-        for (let i = 1; i <= 6; i++) {
-            if (req.body[`player${i}name`]) {
-                players.push({
-                    name: req.body[`player${i}name`],
-                    score: req.body[`player${i}score`]
-                });
-            };
+    for (let i = 1; i <= 6; i++) {
+        if (req.body[`player${i}name`]) {
+            players.push({
+                name: req.body[`player${i}name`],
+                score: req.body[`player${i}score`]
+            });
         };
-        let kingdom = [];
-        for (let i = 1; i <= 10; i++) {
-            if (req.body[`kingdom-card-${i}`]) {
-                kingdom.push({card: req.body[`kingdom-card-${i}`]});
-            };
+    };
+    let kingdom = [];
+    for (let i = 1; i <= 10; i++) {
+        if (req.body[`kingdom-card-${i}`]) {
+            kingdom.push({card: req.body[`kingdom-card-${i}`]});
         };
-        if (kingdom.length === 10) {
-            if(uniqueChecker(kingdom, 'card')) {
-                const game = {
-                    players,
-                    enjoyability: req.body.enjoyability,
-                    kingdom,
-                    user_id: req.session.user._id
-                };
-                await Game.findByIdAndUpdate(req.params.gameId, game);
-                res.redirect(`/games/${req.params.gameId}`);
-            } else {
-                console.log('validation failed');
-                
-                // res.redirect('games/new');
-            };
-        } else {
-            console.log('validation failed');
-            
+    };
+    if (kingdom.length === 10 && uniqueChecker(kingdom, 'card')) {
+        validationError = false;
+        const game = {
+            players,
+            enjoyability: req.body.enjoyability,
+            kingdom,
+            user_id: req.session.user._id
         };
+        await Game.findByIdAndUpdate(req.params.gameId, game);
+        res.redirect(`/games/${req.params.gameId}`);
+    } else {
+        validationError = true;
+        res.redirect(`/games/${req.params.gameId}/edit`);
+    };
 };
 
 const gameDelete = async (req, res) => {

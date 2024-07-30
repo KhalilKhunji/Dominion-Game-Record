@@ -26,6 +26,7 @@
         </fieldset>
         <fieldset>
             <legend>Kingdom</legend>
+            <% if (validationError === true) { %><p>Ensure you select 10 different Kingdom Cards.</p><% }; %>
             <% for (let i = 1; i <= 10; i++) { %>
                 <div>
                     <label for="kingdom-card-<%= i %>">Card <%= i %>:</label>
