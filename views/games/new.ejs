@@ -5,39 +5,11 @@
   <body>
     <h1>Add a New Dominion Game Record.</h1>
     <a href="/games">Back to your Game Records.</a>
-    <form action="/games" method="POST">
-        <fieldset>
-            <legend>Players:</legend>
-                <% for(let i = 1; i <= 6; i++) { %>
-                <div>    
-                    <label for="player<%= i %>name">Player <%= i %> Name:</label>
-                    <input type="text" name="player<%= i %>name" id="player<%= i %>name" <% if(i < 3) { %>required<% } %> />
-                    <label for="player<%= i %>score">Player <%= i %> Score:</label>
-                    <input type="text" name="player<%= i %>score" id="player<%= i %>score" />
-                </div>
-                <% } %>
-        </fieldset>
-        <fieldset>
-            <legend>Enjoyability Score:</legend>
-                <% for (let i = 1; i <= 10; i++) { %>
-                    <input type="radio" name="enjoyability" id="enjoyability" value="<%= i %>" />
-                    <label for="enjoyability"><%= i %></label>
-                <% }; %>
-        </fieldset>
-        <fieldset>
-            <legend>Kingdom</legend>
-            <% for (let i = 1; i <= 10; i++) { %>
-                <div>
-                    <label for="kingdom-card-<%= i %>">Card <%= i %>:</label>
-                    <select name="kingdom-card-<%= i %>" id="kingdom-card-<%= i %>" required>
-                            <option value="">--Kingdom Card <%= i %>--</option>
-                        <% kingdomCards.forEach ((card) => { %>
-                            <option value="<%= card._id %>"><%= card.name %></option>
-                        <% }); %>
-                    </select>
-                </div>
-            <% }; %>
-        </fieldset>
+    <% if (validationError === false) { %>
+        <%- include('../partials/_new-empty.ejs') %>
+    <% } else if (validationError === true) { %>
+        <%- include('../partials/_new-filled.ejs') %>
+    <% }; %>
       <button type="submit">Add Record</button>
     </form>
   </body>

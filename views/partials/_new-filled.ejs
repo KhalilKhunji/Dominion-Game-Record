@@ -1,0 +1,35 @@
+
+<form action="/games" method="POST">
+    <fieldset>
+        <legend>Players:</legend>
+            <% for(let i = 1; i <= 6; i++) { %>
+            <div>    
+                <label for="player<%= i %>name">Player <%= i %> Name:</label>
+                <input type="text" name="player<%= i %>name" id="player<%= i %>name" value="<%= game.playerNames[i-1] %>" <% if(i < 3) { %>required<% } %> />
+                <label for="player<%= i %>score">Player <%= i %> Score:</label>
+                <input type="text" name="player<%= i %>score" id="player<%= i %>score" value="<%= game.playerScores[i-1] %>" />
+            </div>
+            <% } %>
+    </fieldset>
+    <fieldset>
+        <legend>Enjoyability Score:</legend>
+            <% for (let i = 1; i <= 10; i++) { %>
+                <input type="radio" name="enjoyability" id="enjoyability" value="<%= i %>" <% if (Number(game.enjoyability) === i) { %>checked<% }; %> />
+                <label for="enjoyability"><%= i %></label>
+            <% }; %>
+    </fieldset>
+    <fieldset>
+        <legend>Kingdom</legend>
+        <h4>You must submit 10 different Kingdom Cards.</h4>
+        <% for (let i = 1; i <= 10; i++) { %>
+            <div>
+                <label for="kingdom-card-<%= i %>">Card <%= i %>:</label>
+                <select name="kingdom-card-<%= i %>" id="kingdom-card-<%= i %>" required>
+                        <option value="">--Kingdom Card <%= i %>--</option>
+                    <% kingdomCards.forEach ((card) => { %>
+                        <option value="<%= card._id %>" <% if (card._id.toString() === game.kingdomIds[i-1]) { %>selected<% }; %>><%= card.name %></option>
+                    <% }); %>
+                </select>
+            </div>
+        <% }; %>
+    </fieldset>
