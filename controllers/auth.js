@@ -3,12 +3,11 @@ const router = express.Router();
 const User = require('../models/user.js');
 const bcrypt = require('bcrypt');
 
-// Register
 router.get('/sign-up', (req, res) => {
     res.render('auth/sign-up.ejs');
 });
 
-router.post('/sign-up', async (req, res, next) => {
+router.post('/sign-up', async (req, res) => {
     const username = req.body.username;
     try {
         const existingUser = await User.findOne({username});
@@ -38,7 +37,6 @@ router.post('/sign-up', async (req, res, next) => {
     };
 });
 
-// Log In
 router.get("/sign-in", (req, res) => {
     res.render("auth/sign-in.ejs");
 });
@@ -63,8 +61,7 @@ router.post('/sign-in', async (req, res) => {
     });
 });
 
-// Log out
-router.get('/sign-out', (req, res, next) => {
+router.get('/sign-out', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/');
     });

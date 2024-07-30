@@ -34,7 +34,7 @@ const gameCreate = async (req, res) => {
             kingdom.push({card: req.body[`kingdom-card-${i}`]});
         };
     };
-    if (kingdom.length === 10 && uniqueChecker(kingdom, 'card')) {
+    if (kingdom.length === 10 && uniqueChecker(kingdom, 'card') && players.length >= 2 && players.length <= 6) {
         validationError = false;
         const game = {
             players,
@@ -116,7 +116,7 @@ const gameUpdate = async (req, res) => {
             kingdom.push({card: req.body[`kingdom-card-${i}`]});
         };
     };
-    if (kingdom.length === 10 && uniqueChecker(kingdom, 'card')) {
+    if (kingdom.length === 10 && uniqueChecker(kingdom, 'card') && players.length >= 2 && players.length <= 6) {
         validationError = false;
         const game = {
             players,
