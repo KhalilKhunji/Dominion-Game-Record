@@ -60,4 +60,4 @@ app.put('/games/:gameId', isSignedIn, isGameUser, gameCtrl.gameUpdate);
 
 app.delete('/games/:gameId', isSignedIn, isGameUser, gameCtrl.gameDelete);
 
-app.listen(3000);
+app.listen(port);
