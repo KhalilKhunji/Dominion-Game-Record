@@ -1,16 +1,16 @@
 <%- include('./partials/_header.ejs') %>
     <title>Home Page</title>
   </head>
-  <body>
+  <body class="py-1 px-1">
+    <h1>This is the Dominion Game Record App.</h1>
+    <p>An app for recording sessions of the board game Dominion.</p>
     <% if (user) { %>
-      <a href="/auth/sign-out">Sign out</a>
-      <h1>Welcome to the app, <%= user.username %>!</h1>
+      <h1>Welcome, <%= user.username %>!</h1>
+      <p><a href="/games">View your Game Records here!</a></p>
+      <p><a href="/auth/sign-out">Sign out</a></p>
     <% } else { %>
-      <h1>Welcome to the app, guest.</h1>
-      <p>
-        <a href="/auth/sign-up">Sign up</a> or <a href="/auth/sign-in">sign in</a>.
-      </p>
+      <br>
+      <p><a href="/auth/sign-up">Sign up</a> or <a href="/auth/sign-in">sign in</a> to continue.</p>
     <% } %>
-    <p><a href="/games">View your Game Records here!</a></p>
   </body>
 </html>
