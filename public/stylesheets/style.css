@@ -105,6 +105,10 @@ li.gamelist {
     cursor: pointer;
 }
 
+button#danger {
+    background: rgb(221, 49, 49);
+}
+
 div.enjoyability {
     display: flex;
     flex-flow: row nowrap;
@@ -125,3 +129,31 @@ input.radio {
     margin: 0;
 }
 
+div.show-players {
+    display: flex;
+    flex-flow: column wrap;
+    margin: 0.5rem auto;
+}
+
+div.show-kingdom {
+    display: flex;
+    flex-flow: column wrap;
+    margin: 0.5rem auto;
+}
+
+div.show-enjoyability {
+    display: flex;
+    flex-flow: column wrap;
+    margin: 0.5rem auto;
+}
+
+div#show {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+div.footer {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}

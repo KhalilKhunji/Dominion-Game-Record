@@ -14,6 +14,7 @@ const gameIndex = async (req, res) => {
 };
 
 const gameNew = async (req, res) => {
+    validationError = false;
     const kingdomCards = await Card.find({kingdom: true});
     res.render('games/new.ejs', {kingdomCards, validationError});
 };
@@ -128,7 +129,7 @@ const gameUpdate = async (req, res) => {
         res.redirect(`/games/${req.params.gameId}`);
     } else {
         validationError = true;
-        res.redirect(`/games/${req.params.gameId}/edit`);
+        await res.redirect(`/games/${req.params.gameId}/edit`);
     };
 };
 

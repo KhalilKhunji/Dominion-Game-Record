@@ -3,8 +3,9 @@
   </head>
   <%- include('../partials/_nav.ejs') %>
   <body>
+  <div id="show">
     <h1>User: <%= user.username %>. Game ID: <%= game._id %></h1>
-    <div>
+    <div class="show-players">
         <h2>Players:</h2>
             <ol>
             <% game.players.forEach((player) => { %>    
@@ -13,11 +14,11 @@
             </ol>
     </div>
         <% if (game.enjoyability) { %>
-        <div>
-            <p>Enjoyability rating: <%= game.enjoyability %></p>
+        <div class="show-enjoyability">
+            <h3>Enjoyability rating:   <%= game.enjoyability %></h3>
         </div>
         <% }; %>
-    <div>
+    <div class="show-kingdom">
         <h2>Kingdom:</h2>
         <ol>
             <% game.kingdom.forEach((object) => { %>
@@ -25,10 +26,14 @@
             <% }); %>
         </ol>
     </div>
+    <br>
+    <div class="footer">
     <form action="/games/<%=game._id%>?_method=DELETE" method="POST">
-      <button type="submit">Delete Game ID <%= game._id %></button>
+      <button type="submit" class="button" id="danger">Delete Game ID <%= game._id %></button>
     </form>
     <a href="/games/<%= game._id %>/edit">Edit Game ID <%= game._id %></a>
     <a href="/games">Back to Game Record Index</a>
+    </div>
+</div>
   </body>
 </html>
