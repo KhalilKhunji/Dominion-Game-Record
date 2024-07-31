@@ -3,12 +3,14 @@
 </head>
 <body>
     <h1><%= user.username %>'s Dominion Game Records</h1>
-    <p><a href="/games/new">Add New Record</a></p>
+    <br>
     <ol>
       <% games.forEach(game => { %>
         <li class="gamelist"><a href="/games/<%= game._id %>">Game ID: <%= game._id %></a></li>
       <% }); %>
     </ol>
-    <p><a href="/auth/sign-out">Sign out</a></p>
+    <br>
+    <p><a href="/games/new">Add New Record</a></p>
+    <p><a class="sign-out" href="/auth/sign-out">Sign out</a></p>
 </body>
 </html>
