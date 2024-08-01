@@ -89,6 +89,7 @@ li.gamelist {
     a:active {
         background-color: lightgrey;
     }
+    margin: 0.5rem;
 }
 
 .button {
