@@ -25,6 +25,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(methodOverride('_method'));
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -39,8 +41,6 @@ app.use(
 app.use(passUserToView);
 
 app.use('/auth', authController);
-
-app.use(express.static(path.join(__dirname, "public")));
 
 app.get('/', (req, res) => {
   res.render('index.ejs');
